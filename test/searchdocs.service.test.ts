@@ -44,7 +44,6 @@ Deno.test({
     });
 
     //assert
-    console.log(response);
     assert(response);
   },
 });

@@ -1,7 +1,7 @@
 import { Output, Skimming } from '../deps.ts';
 
 class SearchDocsService {
-  skimmer: Skimming;
+  private skimmer: Skimming;
 
   constructor(serviceParams: ServiceParams) {
     this.skimmer = new Skimming({

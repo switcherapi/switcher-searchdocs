@@ -1,3 +1,4 @@
+<!-- deno-fmt-ignore-file -->
 [![Build Status](https://travis-ci.com/petruki/skimming.svg?branch=master)](https://travis-ci.com/github/petruki/skimming)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
