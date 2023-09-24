@@ -1,13 +1,13 @@
 import { Context, Router } from '../deps.ts';
+import { toSearchDocsDto } from '../dto/mapper.ts';
 import SearchDocsService from '../services/searchdocs.ts';
-import { responseError } from '../utils.ts';
+import { responseError, responseSuccess } from '../utils.ts';
 
 const router = new Router();
 const service = new SearchDocsService({ expireDuration: 1000, size: 100 });
 
 router.get('/', async (context: Context) => {
   try {
-    // TODO: Replace this with real search parameters
     const result = await service.skim({
       files: ['README.md'],
       url: 'https://raw.githubusercontent.com/petruki/skimming/master/test/fixtures/',
@@ -19,8 +19,7 @@ router.get('/', async (context: Context) => {
       skipCache: false,
     });
 
-    context.response.body = result;
-    context.response.status = 200;
+    responseSuccess(context, toSearchDocsDto(result));
   } catch (error) {
     responseError(context, error, 500);
   }
