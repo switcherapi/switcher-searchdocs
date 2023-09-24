@@ -1,4 +1,5 @@
 import { Output, Skimming } from '../deps.ts';
+import { SearchDocsRequestDto } from '../dto/request.ts';
 
 class SearchDocsService {
   private skimmer: Skimming;
@@ -10,8 +11,8 @@ class SearchDocsService {
     });
   }
 
-  async skim(params: SkimParams): Promise<Output[]> {
-    const { files, url, query, previewLength, ignoreCase, trimContent, regex, skipCache } = params;
+  async skim(request: SearchDocsRequestDto): Promise<Output[]> {
+    const { files, url, query, previewLength, ignoreCase, trimContent, regex, skipCache } = request;
     const skimContext = {
       url,
       files,
@@ -33,17 +34,6 @@ class SearchDocsService {
 interface ServiceParams {
   expireDuration: number;
   size: number;
-}
-
-interface SkimParams {
-  files: string[];
-  url: string;
-  query: string;
-  previewLength: number;
-  ignoreCase: boolean;
-  trimContent: boolean;
-  regex: boolean;
-  skipCache?: boolean;
 }
 
 export default SearchDocsService;

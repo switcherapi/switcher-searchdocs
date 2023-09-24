@@ -12,14 +12,14 @@ export const responseSuccess = ({ response }: Context, body: ResponseDto) => {
   response.body = body;
 };
 
-export const responseError = ({ response }: Context, error: Error, code: number) => {
-  logger('ERROR', 'Route', error.message);
+export const responseError = ({ response }: Context, error: Error, code: number, showStack?: boolean) => {
+  logger('ERROR', 'Route', error, showStack);
   response.status = code;
   response.body = { error: error.message };
 };
 
-export const logger = (level: string, component: string, content: string | object) => {
-  let data = undefined;
+export const logger = (level: string, component: string, content: string | object, showStack?: boolean) => {
+  let data;
 
   const currentLevel = Deno.env.get('LOG_LEVEL') || 'INFO';
   const levels = Object.keys(Level);
@@ -28,10 +28,12 @@ export const logger = (level: string, component: string, content: string | objec
 
   if (currentLevelIndex >= levelIndex || levelIndex === Level.ERROR) {
     if (content instanceof Error) {
-      content = content.message;
-    }
+      if (showStack) {
+        console.log(content.stack);
+      }
 
-    if (typeof content === 'object') {
+      content = content.message;
+    } else if (typeof content === 'object') {
       content = JSON.stringify(content, null, 2);
     }
 

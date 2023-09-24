@@ -7,8 +7,11 @@ const testTitle = (description: string) => `SearchDocs route - ${description}`;
 Deno.test({
   name: testTitle('it should return search results'),
   async fn() {
+    const searchParams = new URLSearchParams();
+    searchParams.append('query', 'Skimming');
+
     const request = await superoak(app);
-    const response = await request.get(`/`)
+    const response = await request.get(`/?${searchParams.toString()}`)
       .send()
       .expect(200);
 
@@ -19,5 +22,17 @@ Deno.test({
     assert(responseDto.results[0].segment);
     assert(responseDto.results[0].found);
     assertEquals(responseDto.results[0].cache, false);
+  },
+});
+
+Deno.test({
+  name: testTitle('it should NOT return search results - missing Query'),
+  async fn() {
+    const request = await superoak(app);
+    const response = await request.get(`/`)
+      .send()
+      .expect(400);
+
+    assertEquals(response.body.error, 'Invalid query input. Cause: it is empty.');
   },
 });
