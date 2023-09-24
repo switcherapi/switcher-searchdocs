@@ -1,5 +1,5 @@
-import app from '../src/app.ts';
-import { assert, assertEquals, superoak } from './deps.ts';
+import app from '../../src/app.ts';
+import { assert, assertEquals, superoak } from '../deps.ts';
 
 const testTitle = (description: string) => `API route - ${description}`;
 

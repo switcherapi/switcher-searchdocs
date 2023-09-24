@@ -45,7 +45,7 @@ Deno.test({
 Deno.test({
   name: testTitle('it should log ERROR object'),
   fn() {
-    const log = logger('INFO', component, new Error(content));
+    const log = logger('INFO', component, new Error(content), true);
     assert(log);
   },
 });

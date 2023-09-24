@@ -1,5 +1,5 @@
-import SearchDocsService from '../src/services/searchdocs.ts';
-import { assert, assertEquals } from './deps.ts';
+import SearchDocsService from '../../src/services/searchdocs.ts';
+import { assert, assertEquals } from '../deps.ts';
 
 const testTitle = (description: string) => `SearchDocs service - ${description}`;
 

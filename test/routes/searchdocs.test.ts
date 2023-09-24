@@ -1,6 +1,6 @@
-import app from '../src/app.ts';
-import { SearchDocsResponseDto } from '../src/dto/response.ts';
-import { assert, assertEquals, superoak } from './deps.ts';
+import app from '../../src/app.ts';
+import { SearchDocsResponseDto } from '../../src/dto/response.ts';
+import { assert, assertEquals, superoak } from '../deps.ts';
 
 const testTitle = (description: string) => `SearchDocs route - ${description}`;
 
