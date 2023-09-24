@@ -1,10 +1,16 @@
 import { bold, Context } from './deps.ts';
+import { ResponseDto } from './dto/response.ts';
 
 const Level = Object.freeze({
   INFO: 0,
   DEBUG: 1,
   ERROR: 2,
 });
+
+export const responseSuccess = ({ response }: Context, body: ResponseDto) => {
+  response.status = body.code || 200;
+  response.body = body;
+};
 
 export const responseError = ({ response }: Context, error: Error, code: number) => {
   logger('ERROR', 'Route', error.message);
