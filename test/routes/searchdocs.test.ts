@@ -36,3 +36,50 @@ Deno.test({
     assertEquals(response.body.error, 'Invalid query input. Cause: it is empty.');
   },
 });
+
+Deno.test({
+  name: testTitle('it should NOT return search results - invalid "query" input'),
+  async fn() {
+    const searchParams = new URLSearchParams();
+    searchParams.append('query', 'A'.repeat(101));
+
+    const request = await superoak(app);
+    const response = await request.get(`/?${searchParams.toString()}`)
+      .send()
+      .expect(422);
+
+    assertEquals(response.body.error, 'Invalid query input. Cause: it is greater than 100 characters.');
+  },
+});
+
+Deno.test({
+  name: testTitle('it should NOT return search results - invalid "previewLength" input'),
+  async fn() {
+    const searchParams = new URLSearchParams();
+    searchParams.append('query', 'Skimming');
+    searchParams.append('previewLength', 'invalid');
+
+    const request = await superoak(app);
+    const response = await request.get(`/?${searchParams.toString()}`)
+      .send()
+      .expect(422);
+
+    assertEquals(response.body.error, 'Invalid previewLength input. Cause: it is not a valid number.');
+  },
+});
+
+Deno.test({
+  name: testTitle('it should NOT return search results - invalid "ignoreCase" input'),
+  async fn() {
+    const searchParams = new URLSearchParams();
+    searchParams.append('query', 'Skimming');
+    searchParams.append('ignoreCase', 'invalid');
+
+    const request = await superoak(app);
+    const response = await request.get(`/?${searchParams.toString()}`)
+      .send()
+      .expect(422);
+
+    assertEquals(response.body.error, 'Invalid ignoreCase input. Cause: it is not a valid boolean.');
+  },
+});

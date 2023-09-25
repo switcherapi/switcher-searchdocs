@@ -16,6 +16,7 @@ export const responseError = ({ response }: Context, error: Error, code: number,
   logger('ERROR', 'Route', error, showStack);
   response.status = code;
   response.body = { error: error.message };
+  return false;
 };
 
 export const logger = (level: string, component: string, content: string | object, showStack?: boolean) => {
@@ -42,4 +43,20 @@ export const logger = (level: string, component: string, content: string | objec
   }
 
   return data;
+};
+
+export const getParam = (params: URLSearchParams, key: string, or: string | number) => {
+  if (params.has(key)) {
+    return params.get(key)?.trim().replace(/\/$/, '')!;
+  }
+
+  return or;
+};
+
+export const getBooleanParam = (params: URLSearchParams, key: string, or: boolean) => {
+  if (params.has(key)) {
+    return params.get(key)?.trim() === 'true';
+  }
+
+  return or;
 };
