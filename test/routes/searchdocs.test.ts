@@ -1,6 +1,7 @@
 import app from '../../src/app.ts';
+import { SearchDocsQueryParams } from "../../src/dto/request.ts";
 import { SearchDocsResponseDto } from '../../src/dto/response.ts';
-import { assert, assertEquals, superoak } from '../deps.ts';
+import { assert, assertEquals, superoak, IResponse } from '../deps.ts';
 
 const testTitle = (description: string) => `SearchDocs route - ${description}`;
 
@@ -8,20 +9,14 @@ Deno.test({
   name: testTitle('it should return search results'),
   async fn() {
     const searchParams = new URLSearchParams();
-    searchParams.append('query', 'Skimming');
+    searchParams.append(SearchDocsQueryParams.query, 'Skimming');
 
     const request = await superoak(app);
     const response = await request.get(`/?${searchParams.toString()}`)
       .send()
       .expect(200);
 
-    const responseDto = response.body as SearchDocsResponseDto;
-    assert(responseDto.code === 200);
-    assert(responseDto.results.length > 0);
-    assert(responseDto.results[0].file);
-    assert(responseDto.results[0].segment);
-    assert(responseDto.results[0].found);
-    assertEquals(responseDto.results[0].cache, false);
+    assertResponse(response);
   },
 });
 
@@ -29,8 +24,8 @@ Deno.test({
   name: testTitle('it should return search results - using "previewLength"'),
   async fn() {
     const searchParams = new URLSearchParams();
-    searchParams.append('query', 'Skimming');
-    searchParams.append('previewLength', '2');
+    searchParams.append(SearchDocsQueryParams.query, 'Skimming');
+    searchParams.append(SearchDocsQueryParams.previewLength, '2');
 
     const request = await superoak(app);
     const response = await request.get(`/?${searchParams.toString()}`)
@@ -38,14 +33,8 @@ Deno.test({
       .expect(200);
 
     const responseDto = response.body as SearchDocsResponseDto;
-    assert(responseDto.code === 200);
-    assert(responseDto.results.length > 0);
-    assert(responseDto.results[0].file);
-    assert(responseDto.results[0].segment);
-    assert(responseDto.results[0].segment.length);
+    assertResponse(response);
     assert(responseDto.results[0].segment[0].length === 2);
-    assert(responseDto.results[0].found);
-    assertEquals(responseDto.results[0].cache, false);
   },
 });
 
@@ -65,7 +54,7 @@ Deno.test({
   name: testTitle('it should NOT return search results - invalid "query" input'),
   async fn() {
     const searchParams = new URLSearchParams();
-    searchParams.append('query', 'A'.repeat(101));
+    searchParams.append(SearchDocsQueryParams.query, 'A'.repeat(101));
 
     const request = await superoak(app);
     const response = await request.get(`/?${searchParams.toString()}`)
@@ -80,8 +69,8 @@ Deno.test({
   name: testTitle('it should NOT return search results - invalid "previewLength" input'),
   async fn() {
     const searchParams = new URLSearchParams();
-    searchParams.append('query', 'Skimming');
-    searchParams.append('previewLength', 'invalid');
+    searchParams.append(SearchDocsQueryParams.query, 'Skimming');
+    searchParams.append(SearchDocsQueryParams.previewLength, 'invalid');
 
     const request = await superoak(app);
     const response = await request.get(`/?${searchParams.toString()}`)
@@ -96,8 +85,8 @@ Deno.test({
   name: testTitle('it should NOT return search results - invalid "ignoreCase" input'),
   async fn() {
     const searchParams = new URLSearchParams();
-    searchParams.append('query', 'Skimming');
-    searchParams.append('ignoreCase', 'invalid');
+    searchParams.append(SearchDocsQueryParams.query, 'Skimming');
+    searchParams.append(SearchDocsQueryParams.ignoreCase, 'invalid');
 
     const request = await superoak(app);
     const response = await request.get(`/?${searchParams.toString()}`)
@@ -112,8 +101,8 @@ Deno.test({
   name: testTitle('it should NOT return search results - invalid "url" input'),
   async fn() {
     const searchParams = new URLSearchParams();
-    searchParams.append('query', 'Skimming');
-    searchParams.append('url', 'invalid');
+    searchParams.append(SearchDocsQueryParams.query, 'Skimming');
+    searchParams.append(SearchDocsQueryParams.url, 'invalid');
 
     const request = await superoak(app);
     const response = await request.get(`/?${searchParams.toString()}`)
@@ -128,8 +117,8 @@ Deno.test({
   name: testTitle('it should NOT return search results - invalid "trimContent" input'),
   async fn() {
     const searchParams = new URLSearchParams();
-    searchParams.append('query', 'Skimming');
-    searchParams.append('trimContent', 'invalid');
+    searchParams.append(SearchDocsQueryParams.query, 'Skimming');
+    searchParams.append(SearchDocsQueryParams.trimContent, 'invalid');
 
     const request = await superoak(app);
     const response = await request.get(`/?${searchParams.toString()}`)
@@ -144,8 +133,8 @@ Deno.test({
   name: testTitle('it should NOT return search results - invalid "regex" input'),
   async fn() {
     const searchParams = new URLSearchParams();
-    searchParams.append('query', 'Skimming');
-    searchParams.append('regex', 'invalid');
+    searchParams.append(SearchDocsQueryParams.query, 'Skimming');
+    searchParams.append(SearchDocsQueryParams.regex, 'invalid');
 
     const request = await superoak(app);
     const response = await request.get(`/?${searchParams.toString()}`)
@@ -160,8 +149,8 @@ Deno.test({
   name: testTitle('it should NOT return search results - invalid "skipCache" input'),
   async fn() {
     const searchParams = new URLSearchParams();
-    searchParams.append('query', 'Skimming');
-    searchParams.append('skipCache', 'invalid');
+    searchParams.append(SearchDocsQueryParams.query, 'Skimming');
+    searchParams.append(SearchDocsQueryParams.skipCache, 'invalid');
 
     const request = await superoak(app);
     const response = await request.get(`/?${searchParams.toString()}`)
@@ -171,3 +160,13 @@ Deno.test({
     assertEquals(response.body.error, 'Invalid skipCache input. Cause: it is not a valid boolean.');
   },
 });
+
+function assertResponse(response: IResponse) {
+  const responseDto = response.body as SearchDocsResponseDto;
+  assert(responseDto.code === 200);
+  assert(responseDto.results.length > 0);
+  assert(responseDto.results[0].file);
+  assert(responseDto.results[0].segment);
+  assert(responseDto.results[0].found);
+  assertEquals(responseDto.results[0].cache, false);
+}
