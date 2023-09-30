@@ -9,8 +9,18 @@ Deno.test({
     const request = await superoak(app);
     const response = await request.get('/api/check').expect(200);
 
-    assertEquals(response.body.status, 'ok');
-    assert(!response.body.sslEnabled);
+    assertEquals(response.body, {
+      status: 'ok',
+      releaseTime: 'today',
+      sslEnabled: false,
+      appSettings: {
+        contextEndpoint:
+          'https://raw.githubusercontent.com/petruki/skimming/master/',
+        files: 'README.md',
+        cacheExpDuration: '5',
+        cacheSize: '100',
+      },
+    });
   },
 });
 
