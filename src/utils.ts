@@ -47,7 +47,7 @@ export const logger = (level: string, component: string, content: string | objec
 
 export const getParam = (params: URLSearchParams, key: string, or: string | number) => {
   if (params.has(key)) {
-    return params.get(key)?.trim().replace(/\/$/, '')!;
+    return params.get(key)?.trim()!;
   }
 
   return or;

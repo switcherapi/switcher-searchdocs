@@ -1,5 +1,5 @@
 import { bold, Context, cyan, green, Next } from '../deps.ts';
-import { SearchDocsRequestDto } from '../dto/request.ts';
+import { SearchDocsQueryParams, SearchDocsRequestDto } from '../dto/request.ts';
 import { getBooleanParam, getParam, logger } from '../utils.ts';
 
 export const responseTime = async (context: Context, next: Next) => {
@@ -21,16 +21,19 @@ export const responseTimeLog = async (context: Context, next: Next) => {
 };
 
 export const mapToSearchDocsRequestDto = async (context: Context, next: Next) => {
+  const APP_FILES = Deno.env.get('APP_FILES') || '';
+  const APP_CONTEXT_ENDPOINT = Deno.env.get('APP_CONTEXT_ENDPOINT') || '';
+
   const searchParams = context.request.url.searchParams;
   const request = {
-    files: String(getParam(searchParams, 'files', 'README.md')).split(','),
-    query: getParam(searchParams, 'query', ''),
-    url: getParam(searchParams, 'url', 'https://raw.githubusercontent.com/petruki/skimming/master/test/fixtures/'),
-    previewLength: getParam(searchParams, 'previewLength', 0),
-    ignoreCase: getBooleanParam(searchParams, 'ignoreCase', false),
-    trimContent: getBooleanParam(searchParams, 'trimContent', false),
-    regex: getBooleanParam(searchParams, 'regex', false),
-    skipCache: getBooleanParam(searchParams, 'skipCache', false),
+    query: getParam(searchParams, SearchDocsQueryParams.query, ''),
+    url: getParam(searchParams, SearchDocsQueryParams.url, APP_CONTEXT_ENDPOINT),
+    files: String(getParam(searchParams, SearchDocsQueryParams.files, APP_FILES)).split(','),
+    previewLength: getParam(searchParams, SearchDocsQueryParams.previewLength, 0),
+    ignoreCase: getBooleanParam(searchParams, SearchDocsQueryParams.ignoreCase, false),
+    trimContent: getBooleanParam(searchParams, SearchDocsQueryParams.trimContent, false),
+    regex: getBooleanParam(searchParams, SearchDocsQueryParams.regex, false),
+    skipCache: getBooleanParam(searchParams, SearchDocsQueryParams.skipCache, false),
   } as SearchDocsRequestDto;
 
   context.state.request = request;

@@ -4,22 +4,24 @@ import { mapToSearchDocsRequestDto } from '../middleware/index.ts';
 import Validator from '../middleware/validator.ts';
 import { responseError, responseSuccess } from '../utils.ts';
 import SearchDocsService from '../services/searchdocs.ts';
-import { SearchDocsRequestDto } from '../dto/request.ts';
+import { SearchDocsQueryParams, SearchDocsRequestDto } from '../dto/request.ts';
 
 const router = new Router();
-const service = new SearchDocsService({ expireDuration: 1000, size: 100 });
+const expireDuration = parseInt(Deno.env.get('CACHE_EXPIRE_DURATION') || '30000'); // 30s
+const size = parseInt(Deno.env.get('CACHE_SIZE') || '100');
+const service = new SearchDocsService({ expireDuration, size });
 
 const { checkParam, required, hasLenght, isUrl, isBoolean, isNumeric } = Validator;
 
 router.get(
   '/',
-  checkParam('query', [required(), hasLenght({ max: 100 })]),
-  checkParam('url', [isUrl()]),
-  checkParam('previewLength', [isNumeric()]),
-  checkParam('ignoreCase', [isBoolean()]),
-  checkParam('trimContent', [isBoolean()]),
-  checkParam('regex', [isBoolean()]),
-  checkParam('skipCache', [isBoolean()]),
+  checkParam(SearchDocsQueryParams.query, [required(), hasLenght({ max: 100 })]),
+  checkParam(SearchDocsQueryParams.url, [isUrl()]),
+  checkParam(SearchDocsQueryParams.previewLength, [isNumeric()]),
+  checkParam(SearchDocsQueryParams.ignoreCase, [isBoolean()]),
+  checkParam(SearchDocsQueryParams.trimContent, [isBoolean()]),
+  checkParam(SearchDocsQueryParams.regex, [isBoolean()]),
+  checkParam(SearchDocsQueryParams.skipCache, [isBoolean()]),
   mapToSearchDocsRequestDto,
   async (context: Context) => {
     try {
