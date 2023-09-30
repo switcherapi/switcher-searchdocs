@@ -1,7 +1,7 @@
 import app from '../../src/app.ts';
-import { SearchDocsQueryParams } from "../../src/dto/request.ts";
+import { SearchDocsQueryParams } from '../../src/dto/request.ts';
 import { SearchDocsResponseDto } from '../../src/dto/response.ts';
-import { assert, assertEquals, superoak, IResponse } from '../deps.ts';
+import { assert, assertEquals, IResponse, superoak } from '../deps.ts';
 
 const testTitle = (description: string) => `SearchDocs route - ${description}`;
 
@@ -33,7 +33,6 @@ Deno.test({
     assertEquals(responseDto.results[0].cache, true);
   },
 });
-
 
 Deno.test({
   name: testTitle('it should return search results from remote on second request - skipCache'),

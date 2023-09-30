@@ -1,0 +1,216 @@
+{
+	"info": {
+		"_postman_id": "11ea3bea-0795-41c0-9ab7-e752b532d1eb",
+		"name": "Switcher SearchDocs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9436108"
+	},
+	"item": [
+		{
+			"name": "API Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/check",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search - From Remote",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/?query=Test",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "Test"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search - Custom 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/?query=expireDuration&previewLength=-1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "expireDuration"
+						},
+						{
+							"key": "query",
+							"value": "Sk",
+							"disabled": true
+						},
+						{
+							"key": "url",
+							"value": "https://deno.land/std/",
+							"disabled": true
+						},
+						{
+							"key": "files",
+							"value": "manual.md",
+							"disabled": true
+						},
+						{
+							"key": "ignoreCase",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "trimContent",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "previewLength",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search - Custom 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/?query=install.sh&url=https://raw.githubusercontent.com/denoland/deno/main/&files=README.md&previewLength=100&ignoreCase=false",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "install.sh"
+						},
+						{
+							"key": "url",
+							"value": "https://raw.githubusercontent.com/denoland/deno/main/"
+						},
+						{
+							"key": "files",
+							"value": "README.md"
+						},
+						{
+							"key": "previewLength",
+							"value": "100"
+						},
+						{
+							"key": "ignoreCase",
+							"value": "false"
+						},
+						{
+							"key": "trimContent",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "skipCache",
+							"value": "true",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search - Custom 3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/?query=Switcher&url=https://raw.githubusercontent.com/petruki/switcher-management/master/src/assets/documentation/&files=components.md,environment.md,overview.md&previewLength=-1&ignoreCase=false",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "Switcher"
+						},
+						{
+							"key": "url",
+							"value": "https://raw.githubusercontent.com/petruki/switcher-management/master/src/assets/documentation/"
+						},
+						{
+							"key": "files",
+							"value": "components.md,environment.md,libjava.md,libjavascript.md,metrics.md,overview.md,permissions.md,setup.md,strategies.md,team.md",
+							"disabled": true
+						},
+						{
+							"key": "files",
+							"value": "components.md,environment.md,overview.md"
+						},
+						{
+							"key": "files",
+							"value": "components.md",
+							"disabled": true
+						},
+						{
+							"key": "previewLength",
+							"value": "-1"
+						},
+						{
+							"key": "ignoreCase",
+							"value": "false"
+						},
+						{
+							"key": "trimContent",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "skipCache",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "regex",
+							"value": "true",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

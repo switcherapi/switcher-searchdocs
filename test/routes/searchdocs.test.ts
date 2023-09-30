@@ -1,7 +1,7 @@
 import app from '../../src/app.ts';
-import { SearchDocsQueryParams } from "../../src/dto/request.ts";
+import { SearchDocsQueryParams } from '../../src/dto/request.ts';
 import { SearchDocsResponseDto } from '../../src/dto/response.ts';
-import { assert, assertEquals, superoak, IResponse } from '../deps.ts';
+import { assert, assertEquals, IResponse, superoak } from '../deps.ts';
 
 const testTitle = (description: string) => `SearchDocs route - ${description}`;
 
@@ -35,6 +35,24 @@ Deno.test({
     const responseDto = response.body as SearchDocsResponseDto;
     assertResponse(response);
     assert(responseDto.results[0].segment[0].length === 2);
+  },
+});
+
+Deno.test({
+  name: testTitle('it should return search results - using "previewLength" with negative value (show line)'),
+  async fn() {
+    const searchParams = new URLSearchParams();
+    searchParams.append(SearchDocsQueryParams.query, 'Skimming');
+    searchParams.append(SearchDocsQueryParams.previewLength, '-1');
+
+    const request = await superoak(app);
+    const response = await request.get(`/?${searchParams.toString()}`)
+      .send()
+      .expect(200);
+
+    const responseDto = response.body as SearchDocsResponseDto;
+    assertResponse(response);
+    assert(responseDto.results[0].segment[0].length > 'Skimming'.length);
   },
 });
 
