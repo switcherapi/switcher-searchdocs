@@ -1,7 +1,7 @@
 import { Context, Next } from '../deps.ts';
 import { responseError } from '../utils.ts';
 
-type ValidatorFunction = (key: string, context: Context) => boolean;
+type ValidatorFunction = (value: string, key: string, context: Context) => boolean;
 
 export default class Validator {
   static checkParam(str: string, validators: ValidatorFunction[]) {
@@ -10,8 +10,10 @@ export default class Validator {
         return await next();
       }
 
+      const value = context.request.url.searchParams.get(str) || '';
+
       for (const validator of validators) {
-        if (!(await validator(str, context))) {
+        if (!validator(value, str, context)) {
           return false;
         }
       }
@@ -21,9 +23,7 @@ export default class Validator {
   }
 
   static required() {
-    return (key: string, context: Context) => {
-      const value = context.request.url.searchParams.get(key);
-
+    return (value: string, key: string, context: Context) => {
       if (!value) {
         return responseError(context, new Error(`Invalid ${key} input. Cause: it is empty.`), 400);
       }
@@ -33,8 +33,7 @@ export default class Validator {
   }
 
   static hasLenght(lengthValidation: LenghtValidation) {
-    return (key: string, context: Context) => {
-      const value = context.request.url.searchParams.get(key);
+    return (value: string, key: string, context: Context) => {
       if (!value) {
         return true;
       }
@@ -52,8 +51,7 @@ export default class Validator {
   }
 
   static isUrl() {
-    return (key: string, context: Context) => {
-      const value = context.request.url.searchParams.get(key);
+    return (value: string, key: string, context: Context) => {
       if (!value) {
         return true;
       }
@@ -67,8 +65,7 @@ export default class Validator {
   }
 
   static isNumeric() {
-    return (key: string, context: Context) => {
-      const value = context.request.url.searchParams.get(key);
+    return (value: string, key: string, context: Context) => {
       if (!value) {
         return true;
       }
@@ -82,8 +79,7 @@ export default class Validator {
   }
 
   static isBoolean() {
-    return (key: string, context: Context) => {
-      const value = context.request.url.searchParams.get(key);
+    return (value: string, key: string, context: Context) => {
       if (!value) {
         return true;
       }
