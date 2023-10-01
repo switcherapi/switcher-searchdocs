@@ -16,10 +16,6 @@ interface ValidatorParams {
 export default class Validator {
   static checkParam(args: ValidatorParams[]) {
     return async (context: Context, next: Next) => {
-      if (!args.length) {
-        return await next();
-      }
-
       for (const arg of args) {
         const value = context.request.url.searchParams.get(arg.key) || '';
 
