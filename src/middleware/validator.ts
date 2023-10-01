@@ -3,18 +3,30 @@ import { responseError } from '../utils.ts';
 
 type ValidatorFunction = (value: string, key: string, context: Context) => boolean;
 
+interface LenghtValidation {
+  min?: number;
+  max?: number;
+}
+
+interface ValidatorParams {
+  key: string;
+  validators: ValidatorFunction[];
+}
+
 export default class Validator {
-  static checkParam(str: string, validators: ValidatorFunction[]) {
+  static checkParam(args: ValidatorParams[]) {
     return async (context: Context, next: Next) => {
-      if (validators.length === 0) {
+      if (!args.length) {
         return await next();
       }
 
-      const value = context.request.url.searchParams.get(str) || '';
+      for (const arg of args) {
+        const value = context.request.url.searchParams.get(arg.key) || '';
 
-      for (const validator of validators) {
-        if (!validator(value, str, context)) {
-          return false;
+        for (const validator of arg.validators) {
+          if (!validator(value, arg.key, context)) {
+            return false;
+          }
         }
       }
 
@@ -91,9 +103,4 @@ export default class Validator {
       return true;
     };
   }
-}
-
-interface LenghtValidation {
-  min?: number;
-  max?: number;
 }

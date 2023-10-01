@@ -15,13 +15,15 @@ const { checkParam, required, hasLenght, isUrl, isBoolean, isNumeric } = Validat
 
 router.get(
   '/',
-  checkParam(SearchDocsQueryParams.query, [required(), hasLenght({ max: 100 })]),
-  checkParam(SearchDocsQueryParams.url, [isUrl()]),
-  checkParam(SearchDocsQueryParams.previewLength, [isNumeric()]),
-  checkParam(SearchDocsQueryParams.ignoreCase, [isBoolean()]),
-  checkParam(SearchDocsQueryParams.trimContent, [isBoolean()]),
-  checkParam(SearchDocsQueryParams.regex, [isBoolean()]),
-  checkParam(SearchDocsQueryParams.skipCache, [isBoolean()]),
+  checkParam([
+    { key: SearchDocsQueryParams.query, validators: [required(), hasLenght({ max: 100 })] },
+    { key: SearchDocsQueryParams.url, validators: [isUrl()] },
+    { key: SearchDocsQueryParams.previewLength, validators: [isNumeric()] },
+    { key: SearchDocsQueryParams.ignoreCase, validators: [isBoolean()] },
+    { key: SearchDocsQueryParams.trimContent, validators: [isBoolean()] },
+    { key: SearchDocsQueryParams.regex, validators: [isBoolean()] },
+    { key: SearchDocsQueryParams.skipCache, validators: [isBoolean()] },
+  ]),
   mapToSearchDocsRequestDto,
   async (context: Context) => {
     try {
