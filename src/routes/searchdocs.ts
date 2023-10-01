@@ -1,10 +1,9 @@
 import { Context, Router } from '../deps.ts';
-import { toSearchDocsDto } from '../dto/mapper.ts';
-import { mapToSearchDocsRequestDto } from '../middleware/index.ts';
+import { toSearchDocsRequestDto, toSearchDocsResponseDto } from '../dto/mapper.ts';
 import Validator from '../middleware/validator.ts';
 import { responseError, responseSuccess } from '../utils.ts';
 import SearchDocsService from '../services/searchdocs.ts';
-import { SearchDocsQueryParams, SearchDocsRequestDto } from '../dto/request.ts';
+import { SearchDocsQueryParams } from '../dto/request.ts';
 
 const router = new Router();
 const expireDuration = parseInt(Deno.env.get('CACHE_EXPIRE_DURATION') || '30000'); // 30s
@@ -24,11 +23,11 @@ router.get(
     { key: SearchDocsQueryParams.regex, validators: [isBoolean()] },
     { key: SearchDocsQueryParams.skipCache, validators: [isBoolean()] },
   ]),
-  mapToSearchDocsRequestDto,
   async (context: Context) => {
     try {
-      const result = await service.skim(context.state.request as SearchDocsRequestDto);
-      responseSuccess(context, toSearchDocsDto(result));
+      const request = toSearchDocsRequestDto(context);
+      const result = await service.skim(request);
+      responseSuccess(context, toSearchDocsResponseDto(result));
     } catch (error) {
       responseError(context, error, 500, true);
     }
