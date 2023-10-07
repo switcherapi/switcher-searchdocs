@@ -1,9 +1,9 @@
 import app from './app.ts';
-import { logger } from './utils.ts';
+import { getEnv, logger } from './utils.ts';
 
-const APP_PORT = Deno.env.get('APP_PORT') || 4000;
-const SSL_CERT = Deno.env.get('SSL_CERT');
-const SSL_KEY = Deno.env.get('SSL_KEY');
+const APP_PORT = getEnv('APP_PORT', 4000);
+const SSL_CERT = getEnv('SSL_CERT', '');
+const SSL_KEY = getEnv('SSL_KEY', '');
 
 const createServer = () => {
   if (SSL_CERT && SSL_KEY) {
@@ -19,10 +19,10 @@ const createServer = () => {
     app.listen({ port: Number(APP_PORT) });
   }
 
-  logger('INFO', 'createServer', `Context url             ${Deno.env.get('APP_URL')}`);
-  logger('INFO', 'createServer', `Context files           ${Deno.env.get('APP_FILES')}`);
-  logger('INFO', 'createServer', `Context cache duration  ${Deno.env.get('APP_CACHE_EXP_DURATION')}`);
-  logger('INFO', 'createServer', `Context cache size      ${Deno.env.get('APP_CACHE_SIZE')}`);
+  logger('INFO', 'createServer', `Context url             ${getEnv('APP_URL', '--not set--')}`);
+  logger('INFO', 'createServer', `Context files           ${getEnv('APP_FILES', '--not set--')}`);
+  logger('INFO', 'createServer', `Context cache duration  ${getEnv('APP_CACHE_EXP_DURATION', '--not set--')}`);
+  logger('INFO', 'createServer', `Context cache size      ${getEnv('APP_CACHE_SIZE', '--not set--')}`);
 };
 
 createServer();

@@ -1,7 +1,7 @@
 import { Context, Router } from '../deps.ts';
 import { toSearchDocsRequestDto, toSearchDocsResponseDto } from '../dto/mapper.ts';
 import Validator from '../middleware/validator.ts';
-import { responseError, responseSuccess } from '../utils.ts';
+import { getEnv, responseError, responseSuccess } from '../utils.ts';
 import SearchDocsService from '../services/searchdocs.ts';
 import { SearchDocsQueryParams } from '../dto/request.ts';
 
@@ -34,8 +34,8 @@ router.get(
 
 const getService = () => {
   if (!service) {
-    const expireDuration = parseInt(Deno.env.get('APP_CACHE_EXP_DURATION') || '30');
-    const size = parseInt(Deno.env.get('APP_CACHE_SIZE') || '100');
+    const expireDuration = parseInt(getEnv('APP_CACHE_EXP_DURATION', '30'));
+    const size = parseInt(getEnv('APP_CACHE_SIZE', '100'));
     service = new SearchDocsService({ expireDuration, size });
   }
 

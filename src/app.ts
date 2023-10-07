@@ -1,10 +1,11 @@
 import { Application, load } from './deps.ts';
 import { responseTime, responseTimeLog } from './middleware/index.ts';
 
-await load({ export: true, envPath: Deno.env.get('ENV_PATH') || '.env' });
+await load({ export: true, envPath: getEnv('ENV_PATH', '.env') });
 
 import routerApi from './routes/api.ts';
 import routerSearchDocs from './routes/searchdocs.ts';
+import { getEnv } from './utils.ts';
 
 const app = new Application();
 

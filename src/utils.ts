@@ -7,22 +7,22 @@ const Level = Object.freeze({
   ERROR: 2,
 });
 
-export const responseSuccess = ({ response }: Context, body: ResponseDto) => {
+export function responseSuccess({ response }: Context, body: ResponseDto) {
   response.status = body.code || 200;
   response.body = body;
-};
+}
 
-export const responseError = ({ response }: Context, error: Error, code: number, showStack?: boolean) => {
+export function responseError({ response }: Context, error: Error, code: number, showStack?: boolean) {
   logger('ERROR', 'Route', error, showStack);
   response.status = code;
   response.body = { error: error.message };
   return false;
-};
+}
 
-export const logger = (level: string, component: string, content: string | object, showStack?: boolean) => {
+export function logger(level: string, component: string, content: string | object, showStack?: boolean) {
   let data;
 
-  const currentLevel = Deno.env.get('LOG_LEVEL') || 'INFO';
+  const currentLevel = getEnv('LOG_LEVEL', 'INFO');
   const levels = Object.keys(Level);
   const currentLevelIndex = levels.indexOf(currentLevel);
   const levelIndex = levels.indexOf(level);
@@ -43,20 +43,24 @@ export const logger = (level: string, component: string, content: string | objec
   }
 
   return data;
-};
+}
 
-export const getParam = (params: URLSearchParams, key: string, or: string | number) => {
+export function getParam(params: URLSearchParams, key: string, or: string | number) {
   if (params.has(key)) {
     return params.get(key)?.trim()!;
   }
 
   return or;
-};
+}
 
-export const getBooleanParam = (params: URLSearchParams, key: string, or: boolean) => {
+export function getBooleanParam(params: URLSearchParams, key: string, or: boolean) {
   if (params.has(key)) {
     return params.get(key)?.trim() === 'true';
   }
 
   return or;
-};
+}
+
+export function getEnv<T>(key: string, or: T): T {
+  return Deno.env.get(key) as T || or;
+}
