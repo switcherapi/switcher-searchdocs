@@ -40,6 +40,6 @@ const getService = () => {
   }
 
   return service;
-}
+};
 
 export default router;

@@ -19,7 +19,7 @@ const createServer = () => {
     app.listen({ port: Number(APP_PORT) });
   }
 
-  logger('INFO', 'createServer', `Context endpoint        ${Deno.env.get('APP_CONTEXT_ENDPOINT')}`);
+  logger('INFO', 'createServer', `Context url             ${Deno.env.get('APP_URL')}`);
   logger('INFO', 'createServer', `Context files           ${Deno.env.get('APP_FILES')}`);
   logger('INFO', 'createServer', `Context cache duration  ${Deno.env.get('APP_CACHE_EXP_DURATION')}`);
   logger('INFO', 'createServer', `Context cache size      ${Deno.env.get('APP_CACHE_SIZE')}`);
