@@ -132,6 +132,32 @@ Deno.test({
 });
 
 Deno.test({
+  name: testTitle('it should NOT return search results - "url" input not allowed'),
+  async fn() {
+    Deno.env.set('APP_ALLOW_URL', 'false');
+    Deno.env.set('APP_URL', '');
+
+    const searchParams = new URLSearchParams();
+    searchParams.append(SearchDocsQueryParams.query, 'Skimming');
+    searchParams.append(SearchDocsQueryParams.url, `file:///${Deno.cwd()}/test/fixtures/`);
+
+    const request = await superoak(app);
+    const response = await request.get(`/?${searchParams.toString()}`)
+      .send()
+      .expect(500);
+
+    assertEquals(
+      response.body.error,
+      'Invalid context. Cause: context is not defined properly - use setContext() to define the context.',
+    );
+
+    // teardown
+    Deno.env.set('APP_ALLOW_URL', 'true');
+    Deno.env.set('APP_URL', 'https://raw.githubusercontent.com/petruki/skimming/master/');
+  },
+});
+
+Deno.test({
   name: testTitle('it should NOT return search results - invalid "trimContent" input'),
   async fn() {
     const searchParams = new URLSearchParams();

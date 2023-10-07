@@ -18,12 +18,13 @@ export function toSearchDocsResponseDto(output: Output[]): SearchDocsResponseDto
 
 export function toSearchDocsRequestDto(context: Context): SearchDocsRequestDto {
   const APP_FILES = Deno.env.get('APP_FILES') || '';
-  const APP_CONTEXT_ENDPOINT = Deno.env.get('APP_CONTEXT_ENDPOINT') || '';
+  const APP_URL = Deno.env.get('APP_URL') || '';
+  const APP_ALLOW_URL = Deno.env.get('APP_ALLOW_URL') === 'true';
 
   const searchParams = context.request.url.searchParams;
   return {
     query: String(getParam(searchParams, SearchDocsQueryParams.query, '')),
-    url: String(getParam(searchParams, SearchDocsQueryParams.url, APP_CONTEXT_ENDPOINT)),
+    url: APP_ALLOW_URL ? String(getParam(searchParams, SearchDocsQueryParams.url, APP_URL)) : APP_URL,
     files: String(getParam(searchParams, SearchDocsQueryParams.files, APP_FILES)).split(','),
     previewLength: parseInt(String(getParam(searchParams, SearchDocsQueryParams.previewLength, '0'))),
     ignoreCase: getBooleanParam(searchParams, SearchDocsQueryParams.ignoreCase, false),

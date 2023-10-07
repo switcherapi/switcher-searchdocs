@@ -6,9 +6,7 @@ import SearchDocsService from '../services/searchdocs.ts';
 import { SearchDocsQueryParams } from '../dto/request.ts';
 
 const router = new Router();
-const expireDuration = parseInt(Deno.env.get('CACHE_EXPIRE_DURATION') || '30000'); // 30s
-const size = parseInt(Deno.env.get('CACHE_SIZE') || '100');
-const service = new SearchDocsService({ expireDuration, size });
+let service: SearchDocsService;
 
 const { checkParam, required, hasLenght, isUrl, isBoolean, isNumeric } = Validator;
 
@@ -26,12 +24,22 @@ router.get(
   async (context: Context) => {
     try {
       const request = toSearchDocsRequestDto(context);
-      const result = await service.skim(request);
+      const result = await getService().skim(request);
       responseSuccess(context, toSearchDocsResponseDto(result));
     } catch (error) {
       responseError(context, error, 500, true);
     }
   },
 );
+
+const getService = () => {
+  if (!service) {
+    const expireDuration = parseInt(Deno.env.get('APP_CACHE_EXP_DURATION') || '30');
+    const size = parseInt(Deno.env.get('APP_CACHE_SIZE') || '100');
+    service = new SearchDocsService({ expireDuration, size });
+  }
+
+  return service;
+};
 
 export default router;
