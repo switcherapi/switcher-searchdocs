@@ -1,5 +1,5 @@
 import { Context, Output } from '../deps.ts';
-import { getBooleanParam, getParam } from '../utils.ts';
+import { getBooleanParam, getEnv, getParam } from '../utils.ts';
 import { SearchDocsQueryParams, SearchDocsRequestDto } from './request.ts';
 import { SearchDocsResponseDto } from './response.ts';
 
@@ -17,9 +17,9 @@ export function toSearchDocsResponseDto(output: Output[]): SearchDocsResponseDto
 }
 
 export function toSearchDocsRequestDto(context: Context): SearchDocsRequestDto {
-  const APP_FILES = Deno.env.get('APP_FILES') || '';
-  const APP_URL = Deno.env.get('APP_URL') || '';
-  const APP_ALLOW_URL = Deno.env.get('APP_ALLOW_URL') === 'true';
+  const APP_FILES = getEnv('APP_FILES', '');
+  const APP_URL = getEnv('APP_URL', '');
+  const APP_ALLOW_URL = getEnv('APP_ALLOW_URL', 'true') === 'true';
 
   const searchParams = context.request.url.searchParams;
   return {
