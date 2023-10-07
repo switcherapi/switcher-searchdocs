@@ -40,7 +40,7 @@ Request (GET)
     "releaseTime": "today",
     "sslEnabled": false,
     "appSettings": {
-        "contextEndpoint": "https://raw.githubusercontent.com/petruki/skimming/master/",
+        "url": "https://raw.githubusercontent.com/petruki/skimming/master/",
         "files": "README.md",
         "cacheExpDuration": "5",
         "cacheSize": "100"
