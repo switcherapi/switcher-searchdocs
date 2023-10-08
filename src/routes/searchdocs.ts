@@ -8,18 +8,19 @@ import { SearchDocsQueryParams } from '../dto/request.ts';
 const router = new Router();
 let service: SearchDocsService;
 
+const { ignoreCase, previewLength, query, regex, skipCache, trimContent, url } = SearchDocsQueryParams;
 const { checkParam, required, hasLenght, isUrl, isBoolean, isNumeric } = Validator;
 
 router.get(
   '/',
   checkParam([
-    { key: SearchDocsQueryParams.query, validators: [required(), hasLenght({ max: 100 })] },
-    { key: SearchDocsQueryParams.url, validators: [isUrl()] },
-    { key: SearchDocsQueryParams.previewLength, validators: [isNumeric()] },
-    { key: SearchDocsQueryParams.ignoreCase, validators: [isBoolean()] },
-    { key: SearchDocsQueryParams.trimContent, validators: [isBoolean()] },
-    { key: SearchDocsQueryParams.regex, validators: [isBoolean()] },
-    { key: SearchDocsQueryParams.skipCache, validators: [isBoolean()] },
+    { key: query, validators: [required(), hasLenght({ max: 100 })] },
+    { key: url, validators: [isUrl()] },
+    { key: previewLength, validators: [isNumeric()] },
+    { key: ignoreCase, validators: [isBoolean()] },
+    { key: trimContent, validators: [isBoolean()] },
+    { key: regex, validators: [isBoolean()] },
+    { key: skipCache, validators: [isBoolean()] },
   ]),
   async (context: Context) => {
     try {
