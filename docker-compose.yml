@@ -1,0 +1,37 @@
+version: '3.8'
+
+# TLS Enabled
+# volumes:
+#   switcherapi-tls:
+#     driver: local
+#     driver_opts:
+#       o: bind
+#       type: none
+#       device: "/data/certs"
+
+services:
+  app:
+    image: trackerforce/switcher-searchdocs:latest
+    container_name: switcher-searchdocs
+    command: ["run", "--allow-net", "--allow-env", "--allow-read", "index.ts"]
+    ports:
+      - 4000:4000
+    environment:
+      - APP_PORT=4000
+      - RELEASE_TIME=today
+      # - SSL_CERT=/etc/ssl/certs/tls.crt
+      # - SSL_KEY=/etc/ssl/certs/tls.pem
+
+      - APP_RATE_LIMIT=10
+      - APP_RATE_LIMIT_WINDOW=3000
+      - LOG_LEVEL=INFO # DEBUG, INFO, ERROR
+      
+      # Skimming Global Settings
+      - APP_URL=https://raw.githubusercontent.com/petruki/skimming/master/
+      - APP_FILES=README.md
+      - APP_CACHE_EXP_DURATION=5
+      - APP_CACHE_SIZE=100
+      - APP_ALLOW_URL=false
+      - APP_ALLOW_FILES=false
+    # volumes:
+    #   - switcherapi-tls:/etc/ssl/certs
