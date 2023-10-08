@@ -7,7 +7,7 @@ const SSL_KEY = getEnv('SSL_KEY', '');
 
 const createServer = () => {
   if (SSL_CERT && SSL_KEY) {
-    logger('INFO', 'createServer', `SSL enabled - Listening on: ${APP_PORT}`);
+    logger('INFO', 'createServer', 'SSL enabled');
     app.listen({
       port: Number(APP_PORT),
       secure: true,
@@ -15,14 +15,21 @@ const createServer = () => {
       cert: Deno.readTextFileSync(SSL_CERT),
     });
   } else {
-    logger('INFO', 'createServer', `SSL disabled - Listening on: ${APP_PORT}`);
+    logger('INFO', 'createServer', 'SSL disabled');
     app.listen({ port: Number(APP_PORT) });
   }
 
-  logger('INFO', 'createServer', `Context url             ${getEnv('APP_URL', '--not set--')}`);
-  logger('INFO', 'createServer', `Context files           ${getEnv('APP_FILES', '--not set--')}`);
-  logger('INFO', 'createServer', `Context cache duration  ${getEnv('APP_CACHE_EXP_DURATION', '--not set--')}`);
-  logger('INFO', 'createServer', `Context cache size      ${getEnv('APP_CACHE_SIZE', '--not set--')}`);
+  logger('INFO', 'createServer', {
+    port: APP_PORT,
+    rateLimit: getEnv('APP_RATE_LIMIT', '--not set--'),
+    rateWindow: getEnv('APP_RATE_LIMIT_WINDOW', '--not set--'),
+    context: {
+      url: getEnv('APP_URL', '--not set--'),
+      files: getEnv('APP_FILES', '--not set--'),
+      cacheDuration: getEnv('APP_CACHE_EXP_DURATION', '--not set--'),
+      cacheSize: getEnv('APP_CACHE_SIZE', '--not set--'),
+    },
+  });
 };
 
 createServer();
