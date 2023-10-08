@@ -158,6 +158,32 @@ Deno.test({
 });
 
 Deno.test({
+  name: testTitle('it should NOT return search results - "files" input not allowed'),
+  async fn() {
+    Deno.env.set('APP_ALLOW_FILES', 'false');
+    Deno.env.set('APP_FILES', '');
+
+    const searchParams = new URLSearchParams();
+    searchParams.append(SearchDocsQueryParams.query, 'Skimming');
+    searchParams.append(SearchDocsQueryParams.files, `README.md`);
+
+    const request = await superoak(app);
+    const response = await request.get(`/?${searchParams.toString()}`)
+      .send()
+      .expect(500);
+
+    assertEquals(
+      response.body.error,
+      'Invalid context. Cause: file name is empty.',
+    );
+
+    // teardown
+    Deno.env.set('APP_ALLOW_FILES', 'true');
+    Deno.env.set('APP_FILES', 'README.md');
+  },
+});
+
+Deno.test({
   name: testTitle('it should NOT return search results - invalid "trimContent" input'),
   async fn() {
     const searchParams = new URLSearchParams();
