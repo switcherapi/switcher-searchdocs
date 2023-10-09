@@ -13,12 +13,17 @@ Deno.test({
       status: 'ok',
       releaseTime: 'today',
       sslEnabled: false,
+      rateLimit: {
+        max: '100',
+        window: '1000',
+      },
       appSettings: {
         url: 'https://raw.githubusercontent.com/petruki/skimming/master/',
         files: 'README.md',
         cacheExpDuration: '5',
         cacheSize: '100',
         allowUrl: 'true',
+        allowFiles: 'true',
       },
     });
   },
