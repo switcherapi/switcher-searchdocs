@@ -5,6 +5,8 @@ export default class Helmet {
     return async (context: Context, next: Next) => {
       context.response.headers.set('Server', 'Deno');
       context.response.headers.set('Access-Control-Allow-Origin', '*');
+      context.response.headers.set('Access-Control-Allow-Methods', 'GET,OPTIONS');
+      context.response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Accept');
       context.response.headers.set(
         'Content-Security-Policy',
         'default-src \'self\' \'unsafe-inline\' \'unsafe-eval\' data: https: http:; object-src \'none\'; base-uri \'none\'; form-action \'self\'; frame-ancestors \'none\';',
@@ -15,6 +17,11 @@ export default class Helmet {
       context.response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
       context.response.headers.set('Referrer-Policy', 'no-referrer');
       context.response.headers.set('Permissions-Policy', 'geolocation=(), microphone=(), camera=(), payment=()');
+
+      if (context.request.method === 'OPTIONS') {
+        context.response.status = 204;
+      }
+
       await next();
     };
   }
