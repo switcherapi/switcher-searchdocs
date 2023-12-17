@@ -5,7 +5,7 @@ const ACCESS_CONTROL_ALLOW_ORIGIN = '*';
 const ACCESS_CONTROL_ALLOW_METHODS = 'GET,POST,OPTIONS';
 const ACCESS_CONTROL_ALLOW_HEADERS = 'Content-Type, Accept';
 const CONTENT_SECURITY_POLICY =
-  'default-src \'self\' \'unsafe-inline\' \'unsafe-eval\' data: https: http:; object-src \'none\'; base-uri \'none\'; form-action \'self\'; frame-ancestors \'none\';';
+  "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https: http:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none';";
 const X_CONTENT_TYPE_OPTIONS = 'nosniff';
 const X_FRAME_OPTIONS = 'DENY';
 const X_XSS_PROTECTION = '1; mode=block';

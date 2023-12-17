@@ -34,7 +34,7 @@ Deno.test({
     assertEquals(req.response.headers.get('Access-Control-Allow-Origin'), '*');
     assertEquals(
       req.response.headers.get('Content-Security-Policy'),
-      'default-src \'self\' \'unsafe-inline\' \'unsafe-eval\' data: https: http:; object-src \'none\'; base-uri \'none\'; form-action \'self\'; frame-ancestors \'none\';',
+      "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https: http:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none';",
     );
     assertEquals(req.response.headers.get('X-Content-Type-Options'), 'nosniff');
     assertEquals(req.response.headers.get('X-Frame-Options'), 'DENY');
