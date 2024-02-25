@@ -21,10 +21,10 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.inputs.tag }}
 
-      - name: Setup Deno v1.39.2
+      - name: Setup Deno v1.41.0
         uses: denoland/setup-deno@v1
         with:
-          deno-version: v1.39.2
+          deno-version: v1.41.0
 
       - name: Verify formatting
         run: deno task fmt
@@ -71,6 +71,6 @@ jobs:
         with:
           context: .
           push: true
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
