@@ -1,13 +1,16 @@
 {
+  "name": "@switcherapi/switcher-searchdocs",
+  "version": "1.0.1",
+  "description": "A remote document search engine that uses Skimming for Deno",
   "tasks": {
-    "run": "deno run --unstable --allow-net --allow-env --allow-read src/index.ts",
+    "run": "deno run --allow-net --allow-env --allow-read src/index.ts",
     "run:dev": "ENV_PATH=.env.dev deno task run",
     "run:prod": "ENV_PATH=.env deno task run",
     "cache-reload": "deno cache --reload --lock=deno.lock --lock-write src/index.ts",
     "fmt": "deno fmt src/ --options-single-quote --options-line-width=120 --check",
     "fmt:fix": "deno fmt test/ src/ --options-single-quote --options-line-width=120",
-    "fmt:files": "deno fmt --unstable --options-single-quote --options-line-width=120 -- --files",
-    "test": "ENV_PATH=.env.test deno test --unstable --allow-read --allow-net --allow-env --coverage=coverage",
+    "fmt:files": "deno fmt --options-single-quote --options-line-width=120 -- --files",
+    "test": "ENV_PATH=.env.test deno test --allow-read --allow-net --allow-env --coverage=coverage",
     "lcov": "deno coverage coverage --lcov --output=coverage/report.lcov",
     "clean": "rm -rf ./npm ./coverage",
     "cover": "deno task clean && deno task test && deno task lcov && genhtml -o coverage/html coverage/report.lcov"
