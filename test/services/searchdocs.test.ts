@@ -1,10 +1,8 @@
 import SearchDocsService from '../../src/services/searchdocs.ts';
 import { assert, assertEquals } from '../deps.ts';
 
-const testTitle = (description: string) => `SearchDocs service - ${description}`;
-
 Deno.test({
-  name: testTitle('it should return a response with the search results - Remote'),
+  name: 'SearchDocs service - it should return a response with the search results - Remote',
   async fn() {
     //given
     const service = new SearchDocsService({ expireDuration: 5, size: 100 });
@@ -27,7 +25,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should return a response with the search results - Local'),
+  name: 'SearchDocs service - it should return a response with the search results - Local',
   async fn() {
     //given
     const service = new SearchDocsService({ expireDuration: 5, size: 100 });
@@ -49,7 +47,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should return a response segment with the search results - Local'),
+  name: 'SearchDocs service - it should return a response segment with the search results - Local',
   async fn() {
     //given
     const service = new SearchDocsService({ expireDuration: 5, size: 100 });

@@ -2,8 +2,6 @@ import RateLimit from '../../src/middleware/rate-limit.ts';
 import { Context, Next } from '../../src/deps.ts';
 import { assertEquals } from '../deps.ts';
 
-const testTitle = (description: string) => `RateLimit middleware - ${description}`;
-
 const newRequest = () => {
   return {
     request: {
@@ -18,7 +16,7 @@ const newRequest = () => {
 };
 
 Deno.test({
-  name: testTitle('it should return 429 error when limit is exceeded'),
+  name: 'RateLimit middleware - it should return 429 error when limit is exceeded',
   async fn() {
     const rateLimit = new RateLimit();
     const middleware = rateLimit.middleware({
@@ -44,7 +42,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should reset counter after windowMs'),
+  name: 'RateLimit middleware - it should reset counter after windowMs',
   async fn() {
     const rateLimit = new RateLimit();
     const middleware = rateLimit.middleware({
