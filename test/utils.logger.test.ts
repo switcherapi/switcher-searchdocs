@@ -1,13 +1,11 @@
 import { assert, assertEquals } from './deps.ts';
 import { logger } from '../src/utils.ts';
 
-const testTitle = (description: string) => `Utils (logger) - ${description}`;
-
 const component = 'component';
 const content = 'some content';
 
 Deno.test({
-  name: testTitle('it should log INFO'),
+  name: 'Utils (logger) - it should log INFO',
   fn() {
     Deno.env.delete('LOG_LEVEL');
     const log = logger('INFO', component, content);
@@ -16,7 +14,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should log INFO when level is DEBUG'),
+  name: 'Utils (logger) - it should log INFO when level is DEBUG',
   fn() {
     Deno.env.set('LOG_LEVEL', 'DEBUG');
     const log = logger('INFO', component, content);
@@ -25,7 +23,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should NOT log DEBUG when level is INFO'),
+  name: 'Utils (logger) - it should NOT log DEBUG when level is INFO',
   fn() {
     Deno.env.set('LOG_LEVEL', 'INFO');
     const log = logger('DEBUG', component, content);
@@ -34,7 +32,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should always log ERROR'),
+  name: 'Utils (logger) - it should always log ERROR',
   fn() {
     Deno.env.set('LOG_LEVEL', 'INFO');
     const log = logger('ERROR', component, content);
@@ -43,7 +41,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should log ERROR object'),
+  name: 'Utils (logger) - it should log ERROR object',
   fn() {
     const log = logger('INFO', component, new Error(content), true);
     assert(log);
@@ -51,7 +49,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should log INFO JSON object'),
+  name: 'Utils (logger) - it should log INFO JSON object',
   fn() {
     const log = logger('INFO', component, {
       foo: 'bar',

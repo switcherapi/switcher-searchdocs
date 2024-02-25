@@ -3,10 +3,8 @@ import { SearchDocsQueryParams } from '../../src/dto/request.ts';
 import { SearchDocsResponseDto } from '../../src/dto/response.ts';
 import { assert, assertEquals, IResponse, superoak } from '../deps.ts';
 
-const testTitle = (description: string) => `SearchDocs route - ${description}`;
-
 Deno.test({
-  name: testTitle('it should return search results from cache on second request'),
+  name: 'SearchDocs route - it should return search results from cache on second request',
   async fn() {
     const searchParams = new URLSearchParams();
     searchParams.append(SearchDocsQueryParams.query, 'Skimming');
@@ -35,7 +33,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should return search results from remote on second request - skipCache'),
+  name: 'SearchDocs route - it should return search results from remote on second request - skipCache',
   async fn() {
     const searchParams = new URLSearchParams();
     searchParams.append(SearchDocsQueryParams.query, 'Skimming');

@@ -2,8 +2,6 @@ import Helmet from '../../src/middleware/helmet.ts';
 import { Context, Next } from '../../src/deps.ts';
 import { assertEquals } from '../deps.ts';
 
-const testTitle = (description: string) => `Helmet middleware - ${description}`;
-
 const newRequest = () => {
   return {
     request: {
@@ -18,7 +16,7 @@ const newRequest = () => {
 };
 
 Deno.test({
-  name: testTitle('it should set the headers'),
+  name: 'Helmet middleware - it should set the headers',
   async fn() {
     const helmet = new Helmet();
     const middleware = helmet.middleware();

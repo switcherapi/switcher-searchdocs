@@ -3,10 +3,8 @@ import { SearchDocsQueryParams } from '../../src/dto/request.ts';
 import { SearchDocsResponseDto } from '../../src/dto/response.ts';
 import { assert, assertEquals, IResponse, superoak } from '../deps.ts';
 
-const testTitle = (description: string) => `SearchDocs route - ${description}`;
-
 Deno.test({
-  name: testTitle('it should return search results'),
+  name: 'SearchDocs route - it should return search results',
   async fn() {
     const searchParams = new URLSearchParams();
     searchParams.append(SearchDocsQueryParams.query, 'Skimming');
@@ -21,7 +19,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should return search results - using "previewLength"'),
+  name: 'SearchDocs route - it should return search results - using "previewLength"',
   async fn() {
     const searchParams = new URLSearchParams();
     searchParams.append(SearchDocsQueryParams.query, 'Skimming');
@@ -39,7 +37,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should return search results - using "previewLength" with negative value (show line)'),
+  name: 'SearchDocs route - it should return search results - using "previewLength" with negative value (show line)',
   async fn() {
     const searchParams = new URLSearchParams();
     searchParams.append(SearchDocsQueryParams.query, 'Skimming');
@@ -57,7 +55,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should NOT return search results - missing Query'),
+  name: 'SearchDocs route - it should NOT return search results - missing Query',
   async fn() {
     const request = await superoak(app);
     const response = await request.get(`/`)
@@ -69,7 +67,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should NOT return search results - invalid "query" input'),
+  name: 'SearchDocs route - it should NOT return search results - invalid "query" input',
   async fn() {
     const searchParams = new URLSearchParams();
     searchParams.append(SearchDocsQueryParams.query, 'A'.repeat(101));
@@ -84,7 +82,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should NOT return search results - invalid "previewLength" input'),
+  name: 'SearchDocs route - it should NOT return search results - invalid "previewLength" input',
   async fn() {
     const searchParams = new URLSearchParams();
     searchParams.append(SearchDocsQueryParams.query, 'Skimming');
@@ -100,7 +98,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should NOT return search results - invalid "ignoreCase" input'),
+  name: 'SearchDocs route - it should NOT return search results - invalid "ignoreCase" input',
   async fn() {
     const searchParams = new URLSearchParams();
     searchParams.append(SearchDocsQueryParams.query, 'Skimming');
@@ -116,7 +114,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should NOT return search results - invalid "url" input'),
+  name: 'SearchDocs route - it should NOT return search results - invalid "url" input',
   async fn() {
     const searchParams = new URLSearchParams();
     searchParams.append(SearchDocsQueryParams.query, 'Skimming');
@@ -132,7 +130,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should NOT return search results - "url" input not allowed'),
+  name: 'SearchDocs route - it should NOT return search results - "url" input not allowed',
   async fn() {
     Deno.env.set('APP_ALLOW_URL', 'false');
     Deno.env.set('APP_URL', '');
@@ -158,7 +156,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should NOT return search results - "files" input not allowed'),
+  name: 'SearchDocs route - it should NOT return search results - "files" input not allowed',
   async fn() {
     Deno.env.set('APP_ALLOW_FILES', 'false');
     Deno.env.set('APP_FILES', '');
@@ -184,7 +182,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should NOT return search results - invalid "trimContent" input'),
+  name: 'SearchDocs route - it should NOT return search results - invalid "trimContent" input',
   async fn() {
     const searchParams = new URLSearchParams();
     searchParams.append(SearchDocsQueryParams.query, 'Skimming');
@@ -200,7 +198,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should NOT return search results - invalid "regex" input'),
+  name: 'SearchDocs route - it should NOT return search results - invalid "regex" input',
   async fn() {
     const searchParams = new URLSearchParams();
     searchParams.append(SearchDocsQueryParams.query, 'Skimming');
@@ -216,7 +214,7 @@ Deno.test({
 });
 
 Deno.test({
-  name: testTitle('it should NOT return search results - invalid "skipCache" input'),
+  name: 'SearchDocs route - it should NOT return search results - invalid "skipCache" input',
   async fn() {
     const searchParams = new URLSearchParams();
     searchParams.append(SearchDocsQueryParams.query, 'Skimming');
