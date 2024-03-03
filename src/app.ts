@@ -1,7 +1,7 @@
 import { Application, load } from './deps.ts';
 import { responseTime, responseTimeLog } from './middleware/index.ts';
 
-await load({ export: true, envPath: getEnv('ENV_PATH', '.env') });
+await load({ export: true, envPath: getEnv('ENV_PATH', '.env'), allowEmptyValues: true });
 
 import routerApi from './routes/api.ts';
 import routerApidocs from './routes/api-docs.ts';

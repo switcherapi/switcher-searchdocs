@@ -2,4 +2,4 @@
 coverage
 dist
 .scannerwork
-.env
+.env.prod
