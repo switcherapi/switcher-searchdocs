@@ -1,6 +1,6 @@
 export default {
   title: 'Switcher SearchDocs API',
-  version: 'v1.0.1',
+  version: 'v1.0.2',
   description: 'SearchDocs API powered by Deno, Oak and Skimming Module .',
   contact: {
     name: 'Roger Floriano (petruki)',

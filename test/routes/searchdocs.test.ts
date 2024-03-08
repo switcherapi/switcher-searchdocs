@@ -60,9 +60,9 @@ Deno.test({
     const request = await superoak(app);
     const response = await request.get(`/`)
       .send()
-      .expect(400);
+      .expect(422);
 
-    assertEquals(response.body.error, 'Invalid query input. Cause: it is empty.');
+    assertEquals(response.body.error, 'Invalid query input. Cause: it is required.');
   },
 });
 
@@ -77,7 +77,7 @@ Deno.test({
       .send()
       .expect(422);
 
-    assertEquals(response.body.error, 'Invalid query input. Cause: it is greater than 100 characters.');
+    assertEquals(response.body.error, 'Invalid query input. Cause: it exceeds the maximum length of 100.');
   },
 });
 
