@@ -20,8 +20,6 @@ Deno.test({
         files: 'README.md',
         cacheExpDuration: '5',
         cacheSize: '100',
-        allowUrl: 'true',
-        allowFiles: 'true',
       },
     });
   },

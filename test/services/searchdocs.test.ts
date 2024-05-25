@@ -5,12 +5,15 @@ Deno.test({
   name: 'SearchDocs service - it should return a response with the search results - Remote',
   async fn() {
     //given
-    const service = new SearchDocsService({ expireDuration: 5, size: 100 });
+    const service = new SearchDocsService({
+      url: 'https://raw.githubusercontent.com/petruki/skimming/master/test/fixtures/',
+      files: ['README.md'],
+      expireDuration: 5,
+      size: 100,
+    });
 
     //test
     const response = await service.skim({
-      files: ['README.md'],
-      url: 'https://raw.githubusercontent.com/petruki/skimming/master/test/fixtures/',
       query: 'Skimming',
       previewLength: 0,
       ignoreCase: false,
@@ -28,11 +31,14 @@ Deno.test({
   name: 'SearchDocs service - it should return a response with the search results - Local',
   async fn() {
     //given
-    const service = new SearchDocsService({ expireDuration: 5, size: 100 });
+    const service = new SearchDocsService({
+      url: `file:///${Deno.cwd()}/test/fixtures/`,
+      files: ['README.md'],
+      expireDuration: 5,
+      size: 100,
+    });
 
     const response = await service.skim({
-      files: ['README.md'],
-      url: `file:///${Deno.cwd()}/test/fixtures/`,
       query: 'Skimming',
       previewLength: 0,
       ignoreCase: false,
@@ -50,11 +56,14 @@ Deno.test({
   name: 'SearchDocs service - it should return a response segment with the search results - Local',
   async fn() {
     //given
-    const service = new SearchDocsService({ expireDuration: 5, size: 100 });
+    const service = new SearchDocsService({
+      url: `file:///${Deno.cwd()}/test/fixtures/`,
+      files: ['README.md'],
+      expireDuration: 5,
+      size: 100,
+    });
 
     const response = await service.skim({
-      files: ['README.md'],
-      url: `file:///${Deno.cwd()}/test/fixtures/`,
       query: 'deno test',
       previewLength: -1,
       ignoreCase: false,
