@@ -6,9 +6,10 @@ import { assert, assertEquals, IResponse, superoak } from '../deps.ts';
 Deno.test({
   name: 'SearchDocs route - it should return search results from cache on second request',
   async fn() {
+    Deno.env.set('APP_URL', `file:///${Deno.cwd()}/test/fixtures/`);
+
     const searchParams = new URLSearchParams();
     searchParams.append(SearchDocsQueryParams.query, 'Skimming');
-    searchParams.append(SearchDocsQueryParams.url, `file:///${Deno.cwd()}/test/fixtures/`);
 
     // First request
     let request = await superoak(app);
@@ -35,9 +36,10 @@ Deno.test({
 Deno.test({
   name: 'SearchDocs route - it should return search results from remote on second request - skipCache',
   async fn() {
+    Deno.env.set('APP_URL', `file:///${Deno.cwd()}/test/fixtures/`);
+
     const searchParams = new URLSearchParams();
     searchParams.append(SearchDocsQueryParams.query, 'Skimming');
-    searchParams.append(SearchDocsQueryParams.url, `file:///${Deno.cwd()}/test/fixtures/`);
     searchParams.append(SearchDocsQueryParams.skipCache, 'true');
 
     // First request

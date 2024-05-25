@@ -1,4 +1,4 @@
-FROM denoland/deno:alpine-1.41.0
+FROM denoland/deno:alpine-1.43.6
 
 ENV APP_HOME=/home/app
 WORKDIR $APP_HOME
@@ -11,6 +11,6 @@ COPY /src .
 
 RUN addgroup -S app && \
     adduser -S app -G app && \
-    chown -R app:app $APP_HOME /deno-dir
+    chown -R app:app "$APP_HOME" /deno-dir
 
 USER app

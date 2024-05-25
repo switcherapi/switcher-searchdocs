@@ -1,26 +1,24 @@
-import { Output, Skimming } from '../deps.ts';
-import { SearchDocsRequestDto } from '../dto/request.ts';
+import { type Output, Skimming } from '../deps.ts';
+import type { SearchDocsRequestDto } from '../dto/request.ts';
 
 class SearchDocsService {
   private skimmer: Skimming;
 
   constructor(serviceParams: ServiceParams) {
-    this.skimmer = new Skimming({
-      expireDuration: serviceParams.expireDuration,
-      size: serviceParams.size,
+    this.skimmer = Skimming.create({
+      url: serviceParams.url,
+      files: serviceParams.files,
+      cacheOptions: {
+        expireDuration: serviceParams.expireDuration,
+        size: serviceParams.size,
+      },
     });
   }
 
   async skim(request: SearchDocsRequestDto): Promise<Output[]> {
-    const { files, url, query, previewLength, ignoreCase, trimContent, regex, skipCache } = request;
-    const skimContext = {
-      url,
-      files,
-    };
-
-    this.skimmer.useCache = !skipCache;
-    this.skimmer.setContext(skimContext);
+    const { query, previewLength, ignoreCase, trimContent, regex, skipCache } = request;
     const results = await this.skimmer.skim(query, {
+      skipCache,
       previewLength,
       ignoreCase,
       trimContent,
@@ -31,9 +29,11 @@ class SearchDocsService {
   }
 }
 
-interface ServiceParams {
+type ServiceParams = {
+  files: string[];
+  url: string;
   expireDuration: number;
   size: number;
-}
+};
 
 export default SearchDocsService;

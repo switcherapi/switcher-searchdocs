@@ -71,16 +71,6 @@
 							"disabled": true
 						},
 						{
-							"key": "url",
-							"value": "https://deno.land/std/",
-							"disabled": true
-						},
-						{
-							"key": "files",
-							"value": "manual.md",
-							"disabled": true
-						},
-						{
 							"key": "ignoreCase",
 							"value": "false",
 							"disabled": true
@@ -105,7 +95,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/?query=install.sh&url=https://raw.githubusercontent.com/denoland/deno/main/&files=README.md&previewLength=100&ignoreCase=false",
+					"raw": "{{url}}/?query=install.sh&previewLength=100&ignoreCase=false",
 					"host": [
 						"{{url}}"
 					],
@@ -116,14 +106,6 @@
 						{
 							"key": "query",
 							"value": "install.sh"
-						},
-						{
-							"key": "url",
-							"value": "https://raw.githubusercontent.com/denoland/deno/main/"
-						},
-						{
-							"key": "files",
-							"value": "README.md"
 						},
 						{
 							"key": "previewLength",
@@ -154,7 +136,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/?query=Switcher&url=https://raw.githubusercontent.com/petruki/switcher-management/master/src/assets/documentation/&files=components.md,environment.md,overview.md&previewLength=-1&ignoreCase=false",
+					"raw": "{{url}}/?query=Switcher&previewLength=-1&ignoreCase=false",
 					"host": [
 						"{{url}}"
 					],
@@ -165,24 +147,6 @@
 						{
 							"key": "query",
 							"value": "Switcher"
-						},
-						{
-							"key": "url",
-							"value": "https://raw.githubusercontent.com/petruki/switcher-management/master/src/assets/documentation/"
-						},
-						{
-							"key": "files",
-							"value": "components.md,environment.md,libjava.md,libjavascript.md,metrics.md,overview.md,permissions.md,setup.md,strategies.md,team.md",
-							"disabled": true
-						},
-						{
-							"key": "files",
-							"value": "components.md,environment.md,overview.md"
-						},
-						{
-							"key": "files",
-							"value": "components.md",
-							"disabled": true
 						},
 						{
 							"key": "previewLength",

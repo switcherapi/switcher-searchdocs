@@ -57,14 +57,6 @@ export default {
                         type: 'string',
                         example: '100',
                       },
-                      allowUrl: {
-                        type: 'string',
-                        example: 'false',
-                      },
-                      allowFiles: {
-                        type: 'string',
-                        example: 'false',
-                      },
                     },
                   },
                 },

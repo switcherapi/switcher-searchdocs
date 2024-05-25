@@ -31,7 +31,5 @@ services:
       - APP_FILES=README.md
       - APP_CACHE_EXP_DURATION=5
       - APP_CACHE_SIZE=100
-      - APP_ALLOW_URL=false
-      - APP_ALLOW_FILES=false
     # volumes:
     #   - switcherapi-tls:/etc/ssl/certs
