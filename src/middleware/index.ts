@@ -1,4 +1,4 @@
-import { bold, Context, cyan, green, Next } from '../deps.ts';
+import { bold, type Context, cyan, green, type Next } from '../deps.ts';
 import { logger } from '../utils.ts';
 
 export const responseTime = async (context: Context, next: Next) => {

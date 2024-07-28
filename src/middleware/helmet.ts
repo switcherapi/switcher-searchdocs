@@ -1,4 +1,4 @@
-import { Context, Middleware, Next } from '../deps.ts';
+import type { Context, Middleware, Next } from '../deps.ts';
 
 const SERVER = 'Deno';
 const ACCESS_CONTROL_ALLOW_ORIGIN = '*';

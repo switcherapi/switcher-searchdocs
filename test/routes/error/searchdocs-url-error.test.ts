@@ -6,6 +6,7 @@ Deno.test({
   name: 'SearchDocs route error - it should NOT return search results - url is not set',
   async fn() {
     Deno.env.set('APP_URL', 'http://localhost:8000');
+    Deno.env.set('APP_FILES', 'README.md');
 
     const searchParams = new URLSearchParams();
     searchParams.append(SearchDocsQueryParams.query, 'Skimming');
@@ -15,7 +16,7 @@ Deno.test({
       .send()
       .expect(500);
 
-    assert(response.body.error.includes('error sending request for url (http://localhost:8000/README.md)'));
+    assert(response.body.error.includes('client error (Connect)'));
 
     // teardown
     Deno.env.set('APP_URL', 'https://raw.githubusercontent.com/petruki/skimming/master/');

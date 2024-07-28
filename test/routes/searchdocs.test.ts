@@ -1,7 +1,7 @@
 import app from '../../src/app.ts';
 import { SearchDocsQueryParams } from '../../src/dto/request.ts';
-import { SearchDocsResponseDto } from '../../src/dto/response.ts';
-import { assert, assertEquals, IResponse, superoak } from '../deps.ts';
+import type { SearchDocsResponseDto } from '../../src/dto/response.ts';
+import { assert, assertEquals, type IResponse, superoak } from '../deps.ts';
 
 Deno.test({
   name: 'SearchDocs route - it should return search results',
