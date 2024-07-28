@@ -1,4 +1,4 @@
-import { Context, Router } from '../deps.ts';
+import { type Context, Router } from '../deps.ts';
 import { getEnv } from '../utils.ts';
 
 const router = new Router();

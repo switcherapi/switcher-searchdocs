@@ -1,4 +1,4 @@
-import { Context, Middleware, Next } from '../deps.ts';
+import type { Context, Middleware, Next } from '../deps.ts';
 import { responseError } from '../utils.ts';
 
 class RequestStore {
@@ -31,12 +31,17 @@ export default class RateLimit {
     this.map = new Map();
   }
 
-  public middleware(params: RateLimitParams): Middleware {
+  public middleware(params: RateLimitParams, whitelist?: string[]): Middleware {
     const { limit, windowMs } = params;
 
     return async (context: Context, next: Next) => {
       const ip = context.request.ip;
+      const path = context.request.url.pathname;
       const timestamp = Date.now();
+
+      if (whitelist?.includes(path)) {
+        return await next();
+      }
 
       if (!this.map.has(ip)) {
         this.updateRate(context, limit, limit - 1, windowMs, ip, 1, timestamp);

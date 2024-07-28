@@ -14,5 +14,6 @@
     "clean": "rm -rf ./npm ./coverage",
     "cover": "deno task clean && deno task test && deno task lcov && genhtml -o coverage/html coverage/report.lcov"
   },
-  "lock": false
+  "lock": false,
+  "exports": "./src/index.ts"
 }

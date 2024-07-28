@@ -1,5 +1,5 @@
-import { bold, Context } from './deps.ts';
-import { ResponseDto } from './dto/response.ts';
+import { bold, type Context } from './deps.ts';
+import type { ResponseDto } from './dto/response.ts';
 
 const Level = Object.freeze({
   INFO: 0,
@@ -47,7 +47,7 @@ export function logger(level: string, component: string, content: string | objec
 
 export function getParam(params: URLSearchParams, key: string, or: string | number) {
   if (params.has(key)) {
-    return params.get(key)?.trim()!;
+    return params.get(key)?.trim();
   }
 
   return or;

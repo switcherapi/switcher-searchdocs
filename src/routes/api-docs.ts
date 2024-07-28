@@ -1,4 +1,4 @@
-import { Context, Router } from '../deps.ts';
+import { type Context, Router } from '../deps.ts';
 import swaggerDocument from '../api-docs/swagger-document.ts';
 
 const router = new Router();

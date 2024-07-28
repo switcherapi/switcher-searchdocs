@@ -1,7 +1,7 @@
-import { Context, Output } from '../deps.ts';
+import type { Context, Output } from '../deps.ts';
 import { getBooleanParam, getParam } from '../utils.ts';
-import { SearchDocsQueryParams, SearchDocsRequestDto } from './request.ts';
-import { SearchDocsResponseDto } from './response.ts';
+import { SearchDocsQueryParams, type SearchDocsRequestDto } from './request.ts';
+import type { SearchDocsResponseDto } from './response.ts';
 
 export function toSearchDocsResponseDto(output: Output[]): SearchDocsResponseDto {
   return {

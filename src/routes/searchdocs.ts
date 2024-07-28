@@ -1,4 +1,4 @@
-import { Context, Router, ValidatorFn, ValidatorMiddleware } from '../deps.ts';
+import { type Context, Router, ValidatorFn, ValidatorMiddleware } from '../deps.ts';
 import { toSearchDocsRequestDto, toSearchDocsResponseDto } from '../dto/mapper.ts';
 import { getEnv, responseError, responseSuccess } from '../utils.ts';
 import SearchDocsService from '../services/searchdocs.ts';
