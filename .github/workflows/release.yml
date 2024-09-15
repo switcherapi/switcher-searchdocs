@@ -16,10 +16,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Deno v1.43.6
+      - name: Setup Deno v1.46.3
         uses: denoland/setup-deno@v1
         with:
-          deno-version: v1.43.6
+          deno-version: v1.46.3
 
       - name: Verify formatting
         run: deno task fmt
@@ -58,7 +58,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
