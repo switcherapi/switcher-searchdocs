@@ -18,10 +18,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Deno v1.45.4
+      - name: Setup Deno v1.46.3
         uses: denoland/setup-deno@v1
         with:
-          deno-version: v1.45.4
+          deno-version: v1.46.3
 
       - name: Setup LCOV        
         run: sudo apt install -y lcov
@@ -68,7 +68,7 @@ jobs:
 
       - name: Build and push
         id: docker_build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: true
           platforms: linux/amd64,linux/arm64
