@@ -31,7 +31,7 @@ router.get(
       const result = await getService().skim(request);
       responseSuccess(context, toSearchDocsResponseDto(result));
     } catch (error) {
-      responseError(context, error, 500, true);
+      responseError(context, error as Error, 500, true);
     }
   },
 );

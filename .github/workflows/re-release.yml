@@ -21,10 +21,10 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.inputs.tag }}
 
-      - name: Setup Deno v1.46.3
+      - name: Setup Deno v2.0.0
         uses: denoland/setup-deno@v1
         with:
-          deno-version: v1.46.3
+          deno-version: v2.0.0
 
       - name: Verify formatting
         run: deno task fmt
