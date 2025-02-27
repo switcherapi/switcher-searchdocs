@@ -7,7 +7,7 @@
     "run:prod": "ENV_PATH=.env.prod deno task run",
     "cache-reload": "deno cache --reload --lock=deno.lock src/index.ts",
     "fmt": "deno fmt src/ --options-single-quote --options-line-width=120 --check",
-    "fmt:fix": "deno fmt test/ src/ --options-single-quote --options-line-width=120",
+    "fmt:fix": "deno fmt tests/ src/ --options-single-quote --options-line-width=120",
     "fmt:files": "deno fmt --options-single-quote --options-line-width=120 -- --files",
     "test": "deno test --allow-read --allow-net --allow-env --allow-import --coverage=coverage",
     "lcov": "deno coverage coverage --lcov --output=coverage/report.lcov",

@@ -6,7 +6,7 @@ Deno.test({
   async fn() {
     //given
     const service = new SearchDocsService({
-      url: 'https://raw.githubusercontent.com/petruki/skimming/master/test/fixtures/',
+      url: 'https://raw.githubusercontent.com/petruki/skimming/master/tests/fixtures/',
       files: ['README.md'],
       expireDuration: 5,
       size: 100,
@@ -32,7 +32,7 @@ Deno.test({
   async fn() {
     //given
     const service = new SearchDocsService({
-      url: `file:///${Deno.cwd()}/test/fixtures/`,
+      url: `file:///${Deno.cwd()}/tests/fixtures/`,
       files: ['README.md'],
       expireDuration: 5,
       size: 100,
@@ -57,7 +57,7 @@ Deno.test({
   async fn() {
     //given
     const service = new SearchDocsService({
-      url: `file:///${Deno.cwd()}/test/fixtures/`,
+      url: `file:///${Deno.cwd()}/tests/fixtures/`,
       files: ['README.md'],
       expireDuration: 5,
       size: 100,
