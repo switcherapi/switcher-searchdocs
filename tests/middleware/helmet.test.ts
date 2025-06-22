@@ -6,6 +6,7 @@ const newRequest = () => {
   return {
     request: {
       ip: 'localhost',
+      method: 'GET',
     },
     response: {
       status: 0,
@@ -43,5 +44,23 @@ Deno.test({
       req.response.headers.get('Permissions-Policy'),
       'geolocation=(), microphone=(), camera=(), payment=()',
     );
+  },
+});
+
+Deno.test({
+  name: 'Helmet middleware - it should handle OPTIONS requests',
+  async fn() {
+    const helmet = new Helmet();
+    const middleware = helmet.middleware();
+
+    const next = () => {
+      return;
+    };
+
+    const req = newRequest();
+    req.request.method = 'OPTIONS';
+    await middleware(req as Context, next as Next);
+
+    assertEquals(req.response.status, 204);
   },
 });
