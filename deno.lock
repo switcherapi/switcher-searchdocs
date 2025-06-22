@@ -1,5 +1,5 @@
 {
-  "version": "4",
+  "version": "5",
   "specifiers": {
     "jsr:@oak/commons@0.11": "0.11.0",
     "jsr:@oak/commons@1": "1.0.0",
@@ -22,6 +22,7 @@
     "jsr:@std/dotenv@0.225.1": "0.225.1",
     "jsr:@std/dotenv@0.225.2": "0.225.2",
     "jsr:@std/dotenv@0.225.3": "0.225.3",
+    "jsr:@std/dotenv@0.225.5": "0.225.5",
     "jsr:@std/encoding@0.223": "0.223.0",
     "jsr:@std/encoding@1": "1.0.5",
     "jsr:@std/encoding@1.0.0-rc.2": "1.0.0-rc.2",
@@ -31,6 +32,7 @@
     "jsr:@std/fmt@1.0.3": "1.0.3",
     "jsr:@std/fmt@1.0.5": "1.0.5",
     "jsr:@std/fmt@1.0.6": "1.0.6",
+    "jsr:@std/fmt@1.0.8": "1.0.8",
     "jsr:@std/http@0.223": "0.223.0",
     "jsr:@std/http@0.224": "0.224.5",
     "jsr:@std/http@1": "1.0.6",
@@ -44,6 +46,7 @@
     "jsr:@trackerforce/skimming@1.2.1": "1.2.1",
     "jsr:@trackerforce/validator4oak@1.1.0": "1.1.0",
     "jsr:@trackerforce/validator4oak@1.2.0": "1.2.0",
+    "npm:@types/node@*": "22.15.15",
     "npm:path-to-regexp@6.2.1": "6.2.1",
     "npm:path-to-regexp@^6.3.0": "6.3.0"
   },
@@ -183,6 +186,9 @@
     "@std/dotenv@0.225.3": {
       "integrity": "a95e5b812c27b0854c52acbae215856d9cce9d4bbf774d938c51d212711e8d4a"
     },
+    "@std/dotenv@0.225.5": {
+      "integrity": "9ce6f9d0ec3311f74a32535aa1b8c62ed88b1ab91b7f0815797d77a6f60c922f"
+    },
     "@std/encoding@0.223.0": {
       "integrity": "2b5615a75e00337ce113f34cf2f9b8c18182c751a8dcc8b1a2c2fc0e117bef00"
     },
@@ -206,6 +212,9 @@
     },
     "@std/fmt@1.0.6": {
       "integrity": "a2c56a69a2369876ddb3ad6a500bb6501b5bad47bb3ea16bfb0c18974d2661fc"
+    },
+    "@std/fmt@1.0.8": {
+      "integrity": "71e1fc498787e4434d213647a6e43e794af4fd393ef8f52062246e06f7e372b7"
     },
     "@std/http@0.223.0": {
       "integrity": "15ab8a0c5a7e9d5be017a15b01600f20f66602ceec48b378939fa24fcec522aa",
@@ -267,11 +276,20 @@
     }
   },
   "npm": {
+    "@types/node@22.15.15": {
+      "integrity": "sha512-R5muMcZob3/Jjchn5LcO8jdKwSCbzqmPB6ruBxMcf9kbxtniZHP327s6C37iOfuw8mbKK3cAQa7sEl7afLrQ8A==",
+      "dependencies": [
+        "undici-types"
+      ]
+    },
     "path-to-regexp@6.2.1": {
       "integrity": "sha512-JLyh7xT1kizaEvcaXOQwOc2/Yhw6KZOvPf1S8401UyLk86CU79LN3vl7ztXGm/pZ+YjoyAJ4rxmHwbkBXJX+yw=="
     },
     "path-to-regexp@6.3.0": {
       "integrity": "sha512-Yhpw4T9C6hPpgPeA28us07OJeqZ5EzQTkbfwuhsUg0c237RomFoETJgmp2sa3F/41gfLE6G5cqcYwznmeEeOlQ=="
+    },
+    "undici-types@6.21.0": {
+      "integrity": "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ=="
     }
   },
   "remote": {

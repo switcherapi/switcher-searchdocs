@@ -12,7 +12,8 @@
     "test": "deno test --allow-read --allow-net --allow-env --allow-import --coverage=coverage",
     "lcov": "deno coverage coverage --lcov --output=coverage/report.lcov",
     "clean": "rm -rf ./npm ./coverage",
-    "cover": "deno task clean && deno task test && deno task lcov && genhtml -o coverage/html coverage/report.lcov"
+    "cover": "deno task clean && deno task test && deno task lcov && genhtml -o coverage/html coverage/report.lcov",
+    "cover:html": "deno task clean && deno task test && deno task lcov && deno coverage --exclude=external --html"
   },
   "lock": false,
   "exports": "./src/index.ts"
