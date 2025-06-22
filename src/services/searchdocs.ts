@@ -2,7 +2,7 @@ import { type Output, Skimming } from '../deps.ts';
 import type { SearchDocsRequestDto } from '../dto/request.ts';
 
 class SearchDocsService {
-  private skimmer: Skimming;
+  private readonly skimmer: Skimming;
 
   constructor(serviceParams: ServiceParams) {
     this.skimmer = Skimming.create({

@@ -2,8 +2,8 @@ import type { Context, Middleware, Next } from '../deps.ts';
 import { responseError } from '../utils.ts';
 
 class RequestStore {
-  private count: number;
-  private timestamp: number;
+  private readonly count: number;
+  private readonly timestamp: number;
 
   constructor(count: number, timestamp: number) {
     this.count = count;
@@ -25,7 +25,7 @@ interface RateLimitParams {
 }
 
 export default class RateLimit {
-  private map: Map<string, RequestStore>;
+  private readonly map: Map<string, RequestStore>;
 
   constructor() {
     this.map = new Map();
