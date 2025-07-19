@@ -7,7 +7,7 @@ const testBody = (fn: (t: Deno.TestContext) => void | Promise<void>) => {
   return async (t: Deno.TestContext) => {
     Deno.env.set('APP_URL', `file:///${Deno.cwd()}/tests/fixtures/`);
     await fn(t);
-  }
+  };
 };
 
 Deno.test({

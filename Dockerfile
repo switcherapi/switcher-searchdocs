@@ -1,4 +1,4 @@
-FROM denoland/deno:alpine-2.4.0
+FROM denoland/deno:alpine-2.4.2
 
 ENV APP_HOME=/home/app
 WORKDIR $APP_HOME

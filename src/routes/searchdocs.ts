@@ -8,7 +8,7 @@ const router = new Router();
 let service: SearchDocsService;
 
 const { ignoreCase, previewLength, query, regex, skipCache, trimContent } = SearchDocsQueryParams;
-const { query: checkQuery, useErrorHandler } = ValidatorMiddleware.createMiddleware();
+const { query: checkQuery, check, useErrorHandler } = ValidatorMiddleware.createMiddleware();
 const { hasLenght, isBoolean, isNumeric } = ValidatorFn.createValidator();
 
 useErrorHandler((context: Context, error: string) => {
@@ -17,14 +17,14 @@ useErrorHandler((context: Context, error: string) => {
 
 router.get(
   '/',
-  checkQuery([
-    { key: query, validators: [hasLenght({ max: 100 })] },
-    { key: previewLength, validators: [isNumeric()], optional: true },
-    { key: ignoreCase, validators: [isBoolean()], optional: true },
-    { key: trimContent, validators: [isBoolean()], optional: true },
-    { key: regex, validators: [isBoolean()], optional: true },
-    { key: skipCache, validators: [isBoolean()], optional: true },
-  ]),
+  checkQuery(
+    check(query).ifValue(hasLenght({ max: 100 })),
+    check(previewLength).maybe().ifValue(isNumeric()),
+    check(ignoreCase).maybe().ifValue(isBoolean()),
+    check(trimContent).maybe().ifValue(isBoolean()),
+    check(regex).maybe().ifValue(isBoolean()),
+    check(skipCache).maybe().ifValue(isBoolean()),
+  ),
   async (context: Context) => {
     try {
       const request = toSearchDocsRequestDto(context);
