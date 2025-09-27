@@ -16,15 +16,15 @@ jobs:
 
     steps:
       - name: Git checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
           ref: ${{ github.event.inputs.tag }}
 
-      - name: Setup Deno v2.4.5
+      - name: Setup Deno v2.5.2
         uses: denoland/setup-deno@v2
         with:
-          deno-version: v2.4.5
+          deno-version: v2.5.2
 
       - name: Verify formatting
         run: deno task fmt
@@ -42,7 +42,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
           ref: ${{ github.event.inputs.tag }}
