@@ -43,14 +43,13 @@ export default class RateLimit {
         return await next();
       }
 
-      if (!this.map.has(ip)) {
+      const requestStore = this.map.get(ip);
+      if (!requestStore) {
         this.updateRate(context, limit, limit - 1, windowMs, ip, 1, timestamp);
         return await next();
       }
 
-      const requestStore = this.map.get(ip) as RequestStore;
       const diff = timestamp - requestStore.getTimestamp();
-
       if (diff > windowMs) {
         this.updateRate(context, limit, limit - 1, windowMs, ip, 1, timestamp);
         return await next();
