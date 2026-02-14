@@ -1,4 +1,4 @@
-FROM denoland/deno:2.5.2
+FROM denoland/deno:2.6.9
 
 # Install tools
 RUN apt-get update && \

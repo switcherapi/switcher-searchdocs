@@ -21,7 +21,7 @@ export function toSearchDocsRequestDto(context: Context): SearchDocsRequestDto {
 
   return {
     query: String(getParam(searchParams, SearchDocsQueryParams.query, '')),
-    previewLength: parseInt(String(getParam(searchParams, SearchDocsQueryParams.previewLength, '0'))),
+    previewLength: Number.parseInt(String(getParam(searchParams, SearchDocsQueryParams.previewLength, '0'))),
     ignoreCase: getBooleanParam(searchParams, SearchDocsQueryParams.ignoreCase, false),
     trimContent: getBooleanParam(searchParams, SearchDocsQueryParams.trimContent, false),
     regex: getBooleanParam(searchParams, SearchDocsQueryParams.regex, false),

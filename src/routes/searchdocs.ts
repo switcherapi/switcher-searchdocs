@@ -9,7 +9,7 @@ let service: SearchDocsService;
 
 const { ignoreCase, previewLength, query, regex, skipCache, trimContent } = SearchDocsQueryParams;
 const { query: checkQuery, check, useErrorHandler } = ValidatorMiddleware.createMiddleware();
-const { hasLenght, isBoolean, isNumeric } = ValidatorFn.createValidator();
+const { hasLength, isBoolean, isNumeric } = ValidatorFn.createValidator();
 
 useErrorHandler((context: Context, error: string) => {
   return responseError(context, new Error(error), 422);
@@ -18,7 +18,7 @@ useErrorHandler((context: Context, error: string) => {
 router.get(
   '/',
   checkQuery(
-    check(query).ifValue(hasLenght({ max: 100 })),
+    check(query).ifValue(hasLength({ max: 100 })),
     check(previewLength).maybe().ifValue(isNumeric()),
     check(ignoreCase).maybe().ifValue(isBoolean()),
     check(trimContent).maybe().ifValue(isBoolean()),
@@ -40,8 +40,8 @@ function getService() {
   if (!service) {
     const url = getEnv('APP_URL', '');
     const files = getEnv('APP_FILES', '').split(',');
-    const expireDuration = parseInt(getEnv('APP_CACHE_EXP_DURATION', '30'));
-    const size = parseInt(getEnv('APP_CACHE_SIZE', '100'));
+    const expireDuration = Number.parseInt(getEnv('APP_CACHE_EXP_DURATION', '30'));
+    const size = Number.parseInt(getEnv('APP_CACHE_SIZE', '100'));
 
     service = new SearchDocsService({ url, files, expireDuration, size });
   }
